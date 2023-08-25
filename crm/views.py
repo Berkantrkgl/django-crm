@@ -105,3 +105,22 @@ def update_customer(request, pk):
     else :
         messages.success(request, "You must be logged in")
         return redirect('home') 
+    
+
+def search_customer(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            searched = request.POST['searched']
+            customers = Customer.objects.filter(first_name__contains=searched)
+
+            return render(request, 'search_customer.html', {'searched':searched, 'customers':customers})
+        else :
+            messages.success(request, "You must be search something")
+            return redirect('home') 
+
+
+    else :
+        messages.success(request, "You must be logged in")
+        return redirect('home') 
+    
+    

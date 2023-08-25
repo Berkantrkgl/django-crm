@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark" >
+            <tr >
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">City</th>
+                <th scope="col">District</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {% if customers %}  
+                {% for customer in customers %}
+                    
+                    <tr>
+                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.first_name }}</td>
+                        <td>{{ customer.last_name }}</td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.city }}</td>
+                        <td>{{ customer.district }}</td>
+                        <td><a href="{% url 'customer' customer.id %}" class="btn btn-dark">Details</a></td>
+                    </tr>
+                    
+                {% endfor %}
+                {% endif %}
+            
+            </tbody>
+        </table>
+        
+
+{% endblock content %}
