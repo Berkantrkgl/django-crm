@@ -50,7 +50,6 @@ def register_user(request):
             return redirect('home')
     else :
         form = SignUpForm()
-        return render(request, 'register.html', {'form':form})
     return render(request, 'register.html', {'form':form})
 
 
@@ -110,8 +109,11 @@ def update_customer(request, pk):
 def search_customer(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            searched = request.POST['searched']
-            customers = Customer.objects.filter(first_name__contains=searched).order_by('-created_at')
+            searched = request.POST.get('searched')
+            customers = Customer.objects.all()
+            if searched:                
+                customers = customers.filter(first_name__contains=searched)
+            customers = customers.order_by('-created_at')
 
             return render(request, 'search_customer.html', {'searched':searched, 'customers':customers})
         else :
