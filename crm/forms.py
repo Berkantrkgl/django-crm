@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Customer
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Adress'}))
@@ -29,3 +30,17 @@ def __init__(self, *args, **kwargs):
     self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
     self.fields['password2'].label = ''
     self.fields['password2'].help_text = '<span class="form-text text-muted"><small><br/>Enter the same password as before, for verification.</small></span>'
+
+
+
+    # Create Add_customer form
+class AddCustomerForm(forms.ModelForm):
+    first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="")
+    last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="")
+    phone = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Phone Number", "class":"form-control"}), label="")
+    city =  forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"City", "class":"form-control"}), label="")
+    district =  forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"District", "class":"form-control"}), label="")
+
+    class Meta:
+        model = Customer
+        exclude = ("user",)

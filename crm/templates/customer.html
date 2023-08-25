@@ -29,6 +29,7 @@
         
 
         <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        <a href="{% url 'update_customer' customer_record.id %}" class="btn btn-secondary" style="margin-inline: 20px;">Update</a>
         <a href="{% url 'delete_customer' customer_record.id %}" class="btn btn-danger">Delete</a>
     </div>
 </div>
