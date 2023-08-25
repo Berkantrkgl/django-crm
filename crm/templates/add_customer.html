@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% block title %}  Add {% endblock title %}
+
 {% block content %}
 
 
 <div class="col-md-6 offset-md-3">
     <h1>Add Customer</h1>
-
     <form method="POST" action="{% url 'add_customer' %}">
         {% csrf_token %}
 
