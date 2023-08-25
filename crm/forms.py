@@ -37,6 +37,7 @@ def __init__(self, *args, **kwargs):
 class AddCustomerForm(forms.ModelForm):
     first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"First Name", "class":"form-control"}), label="")
     last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Last Name", "class":"form-control"}), label="")
+    tc_no = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Tc No", "class":"form-control"}), label="")
     phone = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Phone Number", "class":"form-control"}), label="")
     city =  forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"City", "class":"form-control"}), label="")
     district =  forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"District", "class":"form-control"}), label="")
