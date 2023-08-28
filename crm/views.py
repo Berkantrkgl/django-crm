@@ -111,23 +111,24 @@ def update_customer(request, pk):
 
 def search_customer(request):
     if request.user.is_authenticated:
-        if request.method == "POST":
+        if request.method == 'POST':
+            
             searched = request.POST.get('searched')
             customers = Customer.objects.all()
-            if searched:                
+            if searched:     
                 customers = customers.filter(first_name__contains=searched)
             customers = customers.order_by('-created_at')
-            p = Paginator(customers, 5)
-            page = request.GET.get('page')
-            customers = p.get_page(page)
-            return render(request, 'search_customer.html', {'searched':searched, 'customers':customers})
+           
         else :
             messages.success(request, "You must be search something")
-            return redirect('home') 
+            customers = Customer.objects.all()
+            
+        p = Paginator(customers, 5)
+        page = request.GET.get('page')
+        customers = p.get_page(page)
+        return render(request, 'search_customer.html', {'customers':customers})
 
 
     else :
         messages.success(request, "You must be logged in")
         return redirect('home') 
-    
-    
