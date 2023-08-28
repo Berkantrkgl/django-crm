@@ -5,13 +5,13 @@ from .forms import SignUpForm
 from .forms import AddCustomerForm
 from .models import Customer
 
+# Import Pagination Stuff
+from django.core.paginator import Paginator
+
+
+
 # Create your views here.
-
-
 def home(request):
-
-    customers = Customer.objects.all().order_by('-created_at')
-
     # Check to see if logging in
     if request.method == 'POST':
         username = request.POST['username']
@@ -26,6 +26,9 @@ def home(request):
             messages.error(request, "There was an error! Please check your password or username!")
             return redirect('home')
     else :
+        p = Paginator(Customer.objects.all().order_by('-created_at'), 5)
+        page = request.GET.get('page')
+        customers = p.get_page(page)
         return render(request, 'home.html', {'customers' : customers})
 
 
@@ -114,7 +117,9 @@ def search_customer(request):
             if searched:                
                 customers = customers.filter(first_name__contains=searched)
             customers = customers.order_by('-created_at')
-
+            p = Paginator(customers, 5)
+            page = request.GET.get('page')
+            customers = p.get_page(page)
             return render(request, 'search_customer.html', {'searched':searched, 'customers':customers})
         else :
             messages.success(request, "You must be search something")
