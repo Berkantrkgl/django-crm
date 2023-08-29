@@ -8,7 +8,19 @@ from .models import Customer
 # Import Pagination Stuff
 from django.core.paginator import Paginator
 
+# Importing for JSON Stuff
+from django.http import JsonResponse
+from .serializers import CustomerSerializer
 
+
+def customer_list(request):
+    # get all the customers
+    customers = Customer.objects.all()
+    # serialize them
+    serializer = CustomerSerializer(customers, many=True)
+    # return json 
+    return JsonResponse(serializer.data)
+     
 
 # Create your views here.
 def home(request):
