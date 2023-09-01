@@ -16,20 +16,40 @@ from rest_framework.generics import get_object_or_404
 
 from rest_framework import permissions
 from crm.api.permissions import IsAdminUserOrReadOnly
+from django_filters import rest_framework as filters
 
+# For Pagination
+from crm.api.pagination import LargePagination, SmallPagination
+
+# Qeuryset import
+from django.db.models import Q
 
 
 class CustomerListCreateAPIViews(generics.ListCreateAPIView):
     queryset = Customer.objects.all().order_by('-created_at')
     serializer_class = CustomerSerializer
     permission_classes = [IsAdminUserOrReadOnly]
+    pagination_class = SmallPagination
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.method == "GET":
+            search_str = self.request.query_params.get("search")
+            if search_str:
+                #import ipdb; ipdb.set_trace()
+                search_str = search_str.lower()
+                queryset = queryset.filter(
+                    Q(first_name__icontains=search_str)   
+                )
+        
+        return queryset
 
 
 class CustomerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all().order_by('-created_at')
     serializer_class = CustomerSerializer
     permission_classes = [IsAdminUserOrReadOnly]
-    
 
 
 # class CustomerListCreateAPIViews(ListModelMixin, CreateModelMixin ,GenericAPIView):
