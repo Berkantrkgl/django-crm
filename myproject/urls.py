@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('crm.urls')),
     path('api/', include('crm.api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-
+    path('api-auth/', include('rest_framework.urls')), ## browsable api sayfasi icin - daha onceden yaptigimiz gibi
+    #path('api/rest_auth/', include('rest_auth.urls')), ## django-rest-auth ile gelen endpointlerimiz icin
 ]

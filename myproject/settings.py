@@ -33,16 +33,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crm',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crm',
     'rest_framework',
-    'django_extensions',
-    'django_filters',
+    'rest_framework.authtoken', ### devaminda terminalde python manage.py makemigrations ve migrate komutlarini calistirmak gerekli.
+    'django_extensions',   
+    'rest_auth', #  bknz: pip install django-rest-auth
     
 ]
 
@@ -135,5 +138,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # }
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', # Token ile istek yapacagim
+        'rest_framework.authentication.SessionAuthentication', # browsable api sayfasinda goruntuleme
+    ]
 }
