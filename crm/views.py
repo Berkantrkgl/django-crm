@@ -8,6 +8,9 @@ from .models import Customer
 # Import Pagination Stuff
 from django.core.paginator import Paginator
 
+# Import Q for multiple Queries
+from django.db.models import Q
+
 
 # Create your views here.
 def home(request):
@@ -25,7 +28,7 @@ def home(request):
             messages.error(request, "There was an error! Please check your password or username!")
             return redirect('home')
     else :
-        p = Paginator(Customer.objects.all().order_by('-created_at'), 5)
+        p = Paginator(Customer.objects.all().order_by('-created_at'), 15)
         page = request.GET.get('page')
         customers = p.get_page(page)
         return render(request, 'home.html', {'customers' : customers})
@@ -115,14 +118,19 @@ def search_customer(request):
             searched = request.POST.get('searched')
             customers = Customer.objects.all()
             if searched:     
-                customers = customers.filter(first_name__contains=searched)
+                customers = customers.filter(
+                    Q(first_name__contains=searched) | 
+                    Q(last_name__contains=searched) |
+                    Q(city__contains=searched) |
+                    Q(district__contains=searched)
+                    )
             customers = customers.order_by('-created_at')
            
         else :
             messages.success(request, "You must be search something")
             customers = Customer.objects.all()
             
-        p = Paginator(customers, 5)
+        p = Paginator(customers, 15)
         page = request.GET.get('page')
         customers = p.get_page(page)
         return render(request, 'search_customer.html', {'customers':customers})
