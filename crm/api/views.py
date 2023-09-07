@@ -32,7 +32,6 @@ class CustomerListCreateAPIViews(generics.ListCreateAPIView):
                 )
         return queryset
 
-
 class CustomerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all().order_by('-created_at')
     serializer_class = CustomerSerializer

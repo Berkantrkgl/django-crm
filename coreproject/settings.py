@@ -33,19 +33,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'crm',
-    'rest_framework',
     'rest_framework.authtoken', ### devaminda terminalde python manage.py makemigrations ve migrate komutlarini calistirmak gerekli.
     'django_extensions',   
     'rest_auth', #  bknz: pip install django-rest-auth
+    'django_filters',
     
 ]
 
