@@ -24,12 +24,13 @@ class CustomerListCreateAPIViews(generics.ListCreateAPIView):
         if self.request.method == "GET":
             search_str = self.request.query_params.get("search")
             if search_str:
-                #import ipdb; ipdb.set_trace()
+                import ipdb; 
                 search_str = search_str.lower()
                 queryset = queryset.filter(
                     Q(first_name__contains=search_str) | 
                     Q(last_name__contains=search_str) 
                 )
+                #ipdb.set_trace()
         return queryset
 
 class CustomerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
