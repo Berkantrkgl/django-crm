@@ -1,15 +1,9 @@
 # Django CRM Project
 
-This project is a Django web project. As part of this project, I applied what I learned while learning web development with Django. The project includes both classic Django applications and Django Rest Framework (DRF).
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+I created this Django project in line with the tasks given to me during my time at Loggma. Here, I first created a server with Classic Django and used Django Template Language for the UI. 
+* Here I designed a customer tracking application. Admin users can open customer records, view these records and perform pagination. Here, input validations such as Regex are made during customer registration.
+* The listing process of the entered customer records was done with Django pagination.
+* A Django-rest-framework version of the application was later made. You can find this under the API directory.
 
 ## Getting Started
 
@@ -28,4 +22,6 @@ Before you begin, make sure you have the following prerequisites:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Berkantrkgl/django-crm.git
+   $ git clone https://github.com/Berkantrkgl/django-crm.git
+   $ cd django-crm
+   $ python manage.py runserver
